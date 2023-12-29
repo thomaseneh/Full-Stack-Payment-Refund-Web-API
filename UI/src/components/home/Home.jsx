@@ -7,7 +7,7 @@ export default function Home() {
       <Container>
         <H1>Request and get paid</H1>
         <Paragraph>
-          Your favourite place to request a refund with easy
+          Your favourite place to request a refund with ease
         </Paragraph>
         <button>
           <NavLink href="/login">Get Started</NavLink>
