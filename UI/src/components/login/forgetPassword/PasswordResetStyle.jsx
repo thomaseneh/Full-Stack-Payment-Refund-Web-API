@@ -7,7 +7,6 @@ export const Form = styled.form`
   margin: auto;
   padding: 20px;
   border-radius: 8px;
-  //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
   label {
     display: block;
@@ -37,4 +36,17 @@ export const P = styled.p`
 export const FormArea = styled.div`
   margin-top: 10%;
   max-width: 400px;
+`;
+export const PasswordArea = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 15px;
+  margin-top: 15px;
+`;
+export const PasswordRendering = styled.div`
+  position: absolute;
+  right: 10px;
+  font-weight: bold;
+  cursor: pointer;
 `;

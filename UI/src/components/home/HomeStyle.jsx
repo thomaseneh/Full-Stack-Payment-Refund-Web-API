@@ -6,7 +6,7 @@ export const WrapperDiv = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 0;
   padding: 0;
-  background-image: url("/homeBackground.jpg");
+  background-image: url("/src/assets/homeBackground.jpg");
   background-size: cover;
   height: 100vh;
   background-position: center;
@@ -31,3 +31,5 @@ export const H1 = styled.h1`
   font-size: 4em;
   margin-bottom: 20px;
 `;
+
+

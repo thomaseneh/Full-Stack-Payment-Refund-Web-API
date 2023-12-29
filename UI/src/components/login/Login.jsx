@@ -1,9 +1,10 @@
-// import React from "react";
 import { FaUser, FaFacebook, FaApple } from "react-icons/fa";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { AiTwotoneUnlock } from "react-icons/ai";
 import { PiUserFill } from "react-icons/pi";
 import NavLink from "react-bootstrap/esm/NavLink";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 import {
   LoginForm,
@@ -19,8 +20,10 @@ import {
   NoAccount,
   LoginContainer,
 } from "./LoginStyle";
+import { useState } from "react";
 
 export function Login() {
+  const[showPassword, setShowPassword] = useState(false);
   function eventHandler(event) {
     event.preventDefault();
 
@@ -31,6 +34,10 @@ export function Login() {
 
     console.log(data);
     event.target.reset();
+  }
+
+  const PasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   }
   return (
     <LoginPage>
@@ -51,6 +58,7 @@ export function Login() {
                 name="username"
                 required
                 autoComplete="username"
+                
               />
             </div>
             <div>
@@ -58,14 +66,24 @@ export function Login() {
                 <AiTwotoneUnlock />
               </Icon>
               <FormControl
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 className="form-control"
                 placeholder="Password"
                 name="password"
-                autoComplete="current-password"
+                autoComplete="password"
                 required
-                minLength={6}
+                
               />
+              <div id="passwordVisibility">
+              {showPassword ? (
+                <IoEyeOutline onClick={PasswordVisibility}/>
+              ) :
+              (
+                <FaRegEyeSlash onClick={PasswordVisibility}/>
+              )
+              }
+              
+              </div>
             </div>
             <button type="submit">Login</button>
 

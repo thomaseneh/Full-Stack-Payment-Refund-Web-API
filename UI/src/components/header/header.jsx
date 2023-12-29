@@ -13,6 +13,7 @@ export default function Header() {
           <Nav className="navbar">
             <NavListItems href="/">Home</NavListItems>
             <NavListItems href="/login">Login</NavListItems>
+            <NavListItems href="/signup">Sign Up</NavListItems>
             <NavListItems href="/about">About Us</NavListItems>
             <NavListItems href="/contact">Contact Us</NavListItems>
             <form action="" className="search-bar">
@@ -28,6 +29,5 @@ export default function Header() {
       </Container>
     </Navbar>
 
-    // another navbar
   );
 }

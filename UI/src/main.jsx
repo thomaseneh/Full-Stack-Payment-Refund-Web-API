@@ -11,7 +11,8 @@ import Login from "./components/login/Login.jsx";
 import ContactUs from "./components/contact/ContactUs.jsx";
 import UnderConstruction from "./components/underConstruction/UnderConstruction.jsx";
 import { PasswordResset } from "./components/login/forgetPassword/ResetPassword.jsx";
-import SignUp from "./components/login/signup/SignUp.jsx";
+import SignUp from "./components/signup/SignUp.jsx";
+
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <PageNotFound /> },
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
   { path: "/contact", element: <ContactUs /> },
   { path: "/underConstruction", element: <UnderConstruction /> },
   { path: "/passwordreset", element: <PasswordResset /> },
-  { path: "/signup", element: <SignUp /> },
+  { path: "/signup", element: <SignUp />}
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

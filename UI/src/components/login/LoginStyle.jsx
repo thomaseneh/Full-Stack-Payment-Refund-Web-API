@@ -4,7 +4,6 @@ export const LoginPage = styled.div`
   min-width: 100%;
   height: 100vh;
   width: 100vw;
-  //   display: flex;
   justify-content: center;
   align-items: center;
   background-color: aliceblue;
@@ -65,7 +64,7 @@ export const FormControl = styled.input`
 
 export const LoginArea = styled.div`
   display: flex;
-  width: 300px;
+  width: 350px;
   border-radius: 15px;
   border: 1px solid black;
   position: relative;
@@ -97,6 +96,14 @@ export const LoginArea = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
+  }
+
+  div #passwordVisibility{
+    position: absolute;
+    margin-left: 210px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;    
   }
 `;
 
@@ -130,9 +137,6 @@ export const Option = styled.div`
   }
 `;
 export const InputOption = styled.div`
-  //   display: flex;
-  //   align-items: center;
-
   input {
     margin-right: 18px;
   }

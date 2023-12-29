@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { Form, H1, P, FormArea } from "./PasswordResetStyle";
+import { FaEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
+import { Form, H1, P, FormArea, PasswordRendering, PasswordArea } from "./PasswordResetStyle";
 
 export function PasswordResset() {
   const [isPasswordMatched, setIsPasswordMatch] = useState(false);
   const [isPasswordConditions, setIsPasswordConditions] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   function eventHandler(event) {
     event.preventDefault();
@@ -26,6 +30,14 @@ export function PasswordResset() {
     event.target.reset();
     setIsPasswordMatch(false);
     setIsPasswordConditions(false);
+
+    
+  }
+  const PasswordVisibility = () => {
+    setShowPassword((prev) => !prev)
+  }
+  const ConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prev) => !prev)
   }
   return (
     <Form onSubmit={eventHandler}>
@@ -36,7 +48,16 @@ export function PasswordResset() {
           <label htmlFor="password" className="form-control">
             New password
           </label>
-          <input type="password" name="newPassword" minLength={8} required />
+          <PasswordArea>
+          <input type={showPassword ? 'text' : 'password'} name="newPassword" minLength={8} required />
+          <PasswordRendering onClick={PasswordVisibility}>
+            {showPassword ? (
+              <FaEye />
+            ) : (
+              <IoMdEyeOff />
+            )}
+          </PasswordRendering>
+          </PasswordArea>
           <div>
             {isPasswordConditions && (
               <p style={{ color: "red" }}>
@@ -50,7 +71,16 @@ export function PasswordResset() {
           <label htmlFor="confirmPassword" className="form-control">
             Confirm new password
           </label>
-          <input type="password" name="confirmPassword" />
+          <PasswordArea>
+          <input type={showConfirmPassword ? 'text' : 'password'} name="confirmPassword" />
+          <PasswordRendering onClick={ConfirmPasswordVisibility}>
+            {showConfirmPassword ? (
+              <FaEye />
+            ) : (
+              <IoMdEyeOff />
+            )}
+          </PasswordRendering>
+          </PasswordArea>
         </div>
         <div>
           {isPasswordMatched && (
@@ -59,7 +89,7 @@ export function PasswordResset() {
             </p>
           )}
         </div>
-        ;<button type="submit">Reset password</button>
+        <button type="submit">Reset password</button>
       </FormArea>
     </Form>
   );

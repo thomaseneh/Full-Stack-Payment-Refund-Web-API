@@ -14,7 +14,6 @@ export const SignUpForm = styled.form`
 
 export const SignUpArea = styled.div`
   max-width: 450px;
-
   margin: 0 auto;
   margin-top: 10%;
 
@@ -29,6 +28,8 @@ export const SignUpArea = styled.div`
 
   div {
     margin-bottom: 15px;
+    display flex;
+    align-items: center;
   }
 
   label span {
@@ -42,4 +43,18 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+`;
+export const PasswordArea = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 15px;
+  margin-top: 15px;
+`;
+
+export const PasswordRendering = styled.div`
+  position: absolute;
+  right: 10px;
+  font-weight: bold;
+  cursor: pointer;
 `;

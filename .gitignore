@@ -1,2 +1,27 @@
+node_modules
 /.metadata/
 node_modules
+# Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# Visual Studio Code
+.vscode/
+
+# Node.js
+node_modules/
+
+# IntelliJ
+.idea/
+
+# Logs
+*.log
+
+# Build artifacts
+/dist/
+/build/
+
+# Dependency directories
+/out/

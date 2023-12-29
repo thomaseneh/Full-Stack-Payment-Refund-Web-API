@@ -1,13 +1,15 @@
-import { SignUpForm, SignUpArea, Input } from "./SignUpStyle";
+import { SignUpForm, SignUpArea, Input, PasswordArea, PasswordRendering } from "./SignUpStyle";
 import { useState } from "react";
-import Error from "../../../Error";
-
-
+import Error from "../../Error";
+import { FaEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
 
  export function SignUp() {
   const [isPasswordMatched, setIsPasswordMatch] = useState(false);
   const [isPasswordConditions, setIsPasswordConditions] = useState(false);
   const [badRequest, setBadRequest] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 
   async function eventHandler(event) {
@@ -54,7 +56,14 @@ import Error from "../../../Error";
     setIsPasswordConditions(false);
     setBadRequest(null);
    }
- 
+
+   const PasswordVisibility = () =>{
+    setShowPassword((prev) => !prev)
+  }
+  const ConfirmPasswordVisibility = () =>{
+    setShowConfirmPassword((prev) => !prev)
+  }
+
   return (
     <SignUpForm onSubmit={eventHandler}>
       <SignUpArea>
@@ -78,9 +87,16 @@ import Error from "../../../Error";
         <div>
           <Input type="email" placeholder="Email" name="email" required />
         </div>
-        <div>
-          <Input type="password" placeholder="Password" name="password" />
-        </div>
+        <PasswordArea>
+          <Input type={showPassword ? 'text' : 'password'} placeholder="Password" name="password" />
+          <PasswordRendering onClick={PasswordVisibility}>
+          {showPassword ? (
+            <FaEye />
+          ) : (
+            <IoMdEyeOff />
+          )}
+          </PasswordRendering>
+        </PasswordArea>
         <div>
           {isPasswordConditions && (
             <p style={{ color: "red" }}>
@@ -89,11 +105,14 @@ import Error from "../../../Error";
             </p>
           )}
         </div>
-        <div>
+        <PasswordArea>
           <Input
-            type="password"
+            type={showConfirmPassword ? 'text' : 'password'}
             placeholder="Confirm Password" name="confirmPassword"/>
-        </div>
+            <PasswordRendering  onClick={ConfirmPasswordVisibility}>
+            {showConfirmPassword ? <FaEye/> : <IoMdEyeOff />}
+            </PasswordRendering>
+        </PasswordArea>
         <div>
           {isPasswordMatched && (
             <p style={{ color: "red" }}>
