@@ -33,7 +33,7 @@ import { IoMdEyeOff } from "react-icons/io";
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/newuser", {
+      const response = await fetch("http://localhost:8080/api/admin/register", {
         method: 'POST',
         body: JSON.stringify(data),
   
@@ -87,6 +87,9 @@ import { IoMdEyeOff } from "react-icons/io";
         <div>
           <Input type="email" placeholder="Email" name="email" required />
         </div>
+        <div>
+          <Input type="username" placeholder="Username" name="username" required />
+        </div>
         <PasswordArea>
           <Input type={showPassword ? 'text' : 'password'} placeholder="Password" name="password" />
           <PasswordRendering onClick={PasswordVisibility}>
@@ -100,7 +103,7 @@ import { IoMdEyeOff } from "react-icons/io";
         <div>
           {isPasswordConditions && (
             <p style={{ color: "red" }}>
-              Password must contain alphabet, upper and local letter and special
+              Password must contain alphabet, upper and lower letter and special
               character
             </p>
           )}

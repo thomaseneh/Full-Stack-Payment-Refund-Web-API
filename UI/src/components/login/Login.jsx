@@ -1,4 +1,4 @@
-import { FaUser, FaFacebook, FaApple } from "react-icons/fa";
+import { FaUser, FaGithub, FaApple } from "react-icons/fa";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { AiTwotoneUnlock } from "react-icons/ai";
 import { PiUserFill } from "react-icons/pi";
@@ -24,14 +24,29 @@ import { useState } from "react";
 
 export function Login() {
   const[showPassword, setShowPassword] = useState(false);
-  function eventHandler(event) {
+  async function eventHandler(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     const acquisitionChannel = formData.getAll("acquisition");
     data.acquisition = acquisitionChannel;
-
+  
+  try {
+    const response = await fetch("http://localhost:8080/api/user/login", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers:{
+        'content-type': 'application/json'
+      }
+    })
+    if(!response.ok){
+      return new Error("The requested URL cannot be reached. Error loading page")
+    }
+  } catch (error) {
+    setBadRequest(error)
+    return;
+  }
     console.log(data);
     event.target.reset();
   }
@@ -116,8 +131,8 @@ export function Login() {
               rel="noopener noreferrer"
             >
               <div style={{ display: "flex" }}>
-                <FaFacebook style={{ color: "blue" }} />
-                <p>Facebook</p>
+                <FaGithub  />
+                <p>GitHub</p>
               </div>
             </NavLink>
           </SocialIcon>
@@ -135,7 +150,7 @@ export function Login() {
           </SocialIcon>
           <SocialIcon>
             <NavLink
-              href="https://appleid.apple.com/sign-in"
+              // href="https://appleid.apple.com/sign-in"
               target="_blank"
               rel="noopener noreferrer"
             >

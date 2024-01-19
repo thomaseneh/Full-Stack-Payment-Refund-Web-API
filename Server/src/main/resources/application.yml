@@ -5,6 +5,20 @@ spring:
     username: azureroot
     password: root@123
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 104840287910-ohrflb5ho2a38cp98bpbustqpsng4ntm.apps.googleusercontent.com
+            client-secret: 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
+
+          github:
+            client-id: 78dd35883295d65e8c5b
+            client-secret: 88e8cbcee1a052205be967e0958f1e1bb5cf8377
+
+
+
 
 
   jpa:
@@ -14,4 +28,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-
+logging:
+  level:
+    root: warn
