@@ -31,8 +31,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(requestAttributeHandler)
-                        .ignoringRequestMatchers("/api/user/register", "/api/admin/register","/contact"))
-                        .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                        .ignoringRequestMatchers("/api/user/register", "/api/admin/register", "/contact"))
+                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
 
                 .securityContext(secContext -> secContext
                         .requireExplicitSave(false))
@@ -44,22 +44,22 @@ public class SecurityConfig {
 //                        .requestMatchers("/delete/{id}","/api/allusers", "/admin/update/{id}", "/admin/login").hasRole("ADMIN")
                 )
                 .httpBasic(Customizer.withDefaults())
-                .oauth2Login(oauth2 ->{
+                .oauth2Login(oauth2 -> {
 
-        })
+                })
 //                .defaultSuccessUrl("http://localhost:8080/api/allusers", true)
 //                .formLogin(Customizer.withDefaults())
                 .logout(logout -> logout.logoutSuccessUrl("/").permitAll());
         return http.build();
     }
 
-   @Bean
-    public PasswordEncoder passwordEncoder(){
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource(){
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of("*"));

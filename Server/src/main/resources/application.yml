@@ -1,9 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://tomcoderrefund.mysql.database.azure.com/toprefunder?useSSL=true
-    username: azureroot
-    password: root@123
+#    url: jdbc:mysql://tomcoderrefund.mysql.database.azure.com/toprefunder?useSSL=true
+    url: jdbc:mysql://localhost:3306/toprefunder
+    username: root
+    password: root
 
   security:
     oauth2:
@@ -16,9 +17,8 @@ spring:
           github:
             client-id: 78dd35883295d65e8c5b
             client-secret: 88e8cbcee1a052205be967e0958f1e1bb5cf8377
-
-
-
+server:
+  port: 8081
 
 
   jpa:
@@ -28,6 +28,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
 logging:
   level:
     root: warn

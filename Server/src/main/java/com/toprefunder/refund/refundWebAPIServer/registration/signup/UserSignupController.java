@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 //@CrossOrigin(origins = "http://localhost:5173")
 public class UserSignupController {
 
-   SignupService service;
+    SignupService service;
 
     @Autowired
     public UserSignupController(SignupService service) {
@@ -29,7 +29,7 @@ public class UserSignupController {
     }
 
     @PostMapping("/user/register")
-    public ResponseEntity<SignupEntity> newUser(@RequestBody SignupEntity user){
+    public ResponseEntity<SignupEntity> newUser(@RequestBody SignupEntity user) {
 
         return new ResponseEntity<>(service.saveUser(user), HttpStatus.CREATED);
     }

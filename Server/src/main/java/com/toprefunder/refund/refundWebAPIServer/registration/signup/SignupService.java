@@ -20,7 +20,7 @@ import java.util.Optional;
 public class SignupService implements UserDetailsService {
 
     public SignupRepository repository;
-   public PasswordEncoder encoder;
+    public PasswordEncoder encoder;
     public RoleRepository roleRepository;
 
     @Autowired
@@ -33,7 +33,7 @@ public class SignupService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SignupEntity users = repository.findByUsername(username);
-        if (users == null){
+        if (users == null) {
             throw new UsernameNotFoundException("The requested" + username + "not found");
         }
         List<SimpleGrantedAuthority> authorities = users.getRole().stream()
@@ -61,6 +61,7 @@ public class SignupService implements UserDetailsService {
             throw new RuntimeException("User already exist");
         }
     }
+
     public SignupEntity updateUser(int id, SignupEntity user) {
         Optional<SignupEntity> userToUpdate = repository.findById(user.getId());
 
@@ -72,11 +73,11 @@ public class SignupService implements UserDetailsService {
             updatedUser.setConfirmPassword(user.getConfirmPassword());
             return repository.save(updatedUser);
         } else {
-        throw new UsernameNotFoundException("User does not exist");
+            throw new UsernameNotFoundException("User does not exist");
+        }
     }
-}
 
-    private Roles userRole(){
+    private Roles userRole() {
         Roles newRole = new Roles();
         newRole.setRole("USER");
         return roleRepository.save(newRole);
@@ -105,7 +106,7 @@ public class SignupService implements UserDetailsService {
 
         Optional<SignupEntity> existingEmail = repository.findByEmail(adminEntity.getEmail());
 
-        if (existingEmail.isEmpty() && existingUsername == null){
+        if (existingEmail.isEmpty() && existingUsername == null) {
 
             String hashPassword = encoder.encode(adminEntity.getPassword());
             adminEntity.setPassword(hashPassword);
@@ -138,7 +139,7 @@ public class SignupService implements UserDetailsService {
         }
     }
 
-    private Roles adminRole(){
+    private Roles adminRole() {
         Roles newAdminRole = new Roles();
         newAdminRole.setRole("ADMIN");
         return roleRepository.save(newAdminRole);

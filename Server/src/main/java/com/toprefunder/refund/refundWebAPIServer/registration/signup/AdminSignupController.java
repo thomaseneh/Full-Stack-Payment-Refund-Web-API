@@ -24,7 +24,7 @@ public class AdminSignupController {
     }
 
     @GetMapping("/allusers")
-    public ResponseEntity<List<SignupEntity>> users(){
+    public ResponseEntity<List<SignupEntity>> users() {
         List<SignupEntity> allUsers = adminSignupService.findAll();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
