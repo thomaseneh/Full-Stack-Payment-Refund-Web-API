@@ -34,7 +34,7 @@ export function Login() {
   
   try {
     const response = await fetch("http://localhost:8080/api/user/login", {
-      method: "POST",
+      method: "POST", redirect: "follow",
       body: JSON.stringify(data),
       headers:{
         'content-type': 'application/json'
@@ -47,7 +47,7 @@ export function Login() {
     setBadRequest(error)
     return;
   }
-    console.log(data);
+    // console.log(data);
     event.target.reset();
   }
 
@@ -100,7 +100,7 @@ export function Login() {
               
               </div>
             </div>
-            <button type="submit">Login</button>
+            <button href = "/dashboard" type="submit">Login</button>
 
             <Option>
               <div>

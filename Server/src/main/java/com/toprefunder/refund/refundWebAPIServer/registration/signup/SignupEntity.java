@@ -30,7 +30,7 @@ public class SignupEntity {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "roles_signup",
-            joinColumns = @JoinColumn(name =  "signup_id"),
+            joinColumns = @JoinColumn(name = "signup_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Roles> role = new HashSet<>();
 }
