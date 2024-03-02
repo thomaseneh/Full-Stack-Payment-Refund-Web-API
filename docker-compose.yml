@@ -1,0 +1,47 @@
+version: '2.24.6'
+
+services:
+  backend:
+    build: 
+      context: ./Server
+    restart: always
+    ports:
+      - 8081:8081
+    environment: 
+      spring.datasource.url: jdbc:mysql://Database:3306/toprefunder
+      spring.datasource.username: root
+      spring.datasource.password: root
+    depends_on:
+      - Database
+    networks:
+      - my-network
+
+  frontend:
+    build: 
+      context: ./UI
+    restart: always
+    ports:
+      - 5173:5173
+    networks:
+      - my-network
+    hostname: frontend
+
+  Database:
+    image: mysql:8.0-debian
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - toprefunder:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: toprefunder
+    networks:
+      - my-network
+
+volumes:
+  toprefunder:
+
+networks:
+  my-network:
+    driver: bridge
