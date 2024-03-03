@@ -5,7 +5,6 @@ pipeline{
         maven "M3"
         git "Git"
         nodejs "NodeJS"
-        npm "NPM"
     }
     stages{
         stage('install dependencies'){
