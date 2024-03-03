@@ -33,7 +33,7 @@ pipeline{
         stage('Message'){
             steps{
                 echo 'This code does not contain unit test!'
-                echo 'you may have to look into it and modify.'
+                echo 'You may have to look into it and modify.'
             }
         }
         stage('Archieve artifacts'){
