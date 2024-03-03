@@ -15,7 +15,7 @@ pipeline{
         }
         stage('fetch'){
             steps{
-                git branch: 'main' url 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
+                git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
             }
         }
         stage('build'){
