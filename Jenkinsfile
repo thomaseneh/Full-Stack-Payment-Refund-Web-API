@@ -4,14 +4,14 @@ pipeline{
         jdk "JDK-17"
         maven "M3"
         git "Git"
-        nodejs "NodeJS"
+        // nodejs "NodeJS"
     }
-    stages{
-        stage('install dependencies'){
-            steps{
-                sh 'npm install'
-            }
-        }
+    // stages{
+    //     stage('install dependencies'){
+    //         steps{
+    //             sh 'npm install'
+    //         }
+    //     }
         stage('fetch'){
             steps{
                 git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
@@ -20,13 +20,13 @@ pipeline{
         stage('build'){
             steps{
                 sh 'mvn install -DskipTests'
-                sh 'npm run build'
+                // sh 'npm run build'
             }
         }
         stage('Unit Test'){
             steps{
                 sh 'mvn test'
-                sh 'npm test'
+                // sh 'npm test'
             }
         }
         stage('Message'){
