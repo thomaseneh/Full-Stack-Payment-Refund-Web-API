@@ -37,7 +37,7 @@ pipeline{
             }
         }
         stage('Archieve artifacts'){
-            success{
+            steps{
                 echo 'build was successful, Archieving the artifacts'
                 archiveArtifacts artifacts: '**/*.war'
             }
