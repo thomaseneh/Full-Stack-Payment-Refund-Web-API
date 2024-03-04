@@ -3,7 +3,7 @@ pipeline{
     tools{
         jdk "JDK-17"
         maven "M3"
-        git "Git"
+        // git "Git"
         nodejs "NodeJS"
         // npm "NPM"
     }
