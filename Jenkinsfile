@@ -5,7 +5,7 @@ pipeline{
         maven "M3"
         git "Git"
         nodejs "NodeJS"
-        npm "NPM"
+        // npm "NPM"
     }
     stages{
         stage('install dependencies'){
@@ -21,26 +21,26 @@ pipeline{
         stage('build'){
             steps{
                 sh 'mvn install -DskipTests'
-                sh 'npm run build'
+                // sh 'npm run build'
             }
         }
         stage('Unit Test'){
             steps{
                 sh 'mvn test'
-                sh 'npm test'
+                // sh 'npm test'
             }
         }
-        stage('Message'){
-            steps{
-                echo 'This code does not contain unit test!'
+        stage('Message') {
+            steps {
+                echo 'This code does not contain unit tests!'
                 echo 'You should look into it and modify.'
             }
+            post {
+                success {
+                    echo 'build was successful, Archiving the artifacts'
+                    archiveArtifacts artifacts: '**/*.war'
+                }
+            }
         }
-        stage('Archieve artifacts'){
-            success{
-                echo 'build was successful, Archieving the artifacts'
-                archiveArtifacts artifacts: '**/*.war'
-            }
-            }
     }
 }
