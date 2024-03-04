@@ -4,17 +4,18 @@ pipeline{
         jdk "JDK-17"
         maven "M3"
         git "Git"
-        // nodejs "NodeJS"
+        nodejs "NodeJS"
+        // npm "NPM"
     }
-    // stages{
-    //     stage('install dependencies'){
-    //         steps{
-    //             sh 'npm install'
-    //         }
-    //     }
+    stages{
+        stage('install dependencies'){
+            steps{
+                sh 'npm install'
+            }
+        }
         stage('fetch'){
             steps{
-                git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
+                git branch: 'main' url 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
             }
         }
         stage('build'){
@@ -29,17 +30,17 @@ pipeline{
                 // sh 'npm test'
             }
         }
-        stage('Message'){
-            steps{
-                echo 'This code does not contain unit test!'
+        stage('Message') {
+            steps {
+                echo 'This code does not contain unit tests!'
                 echo 'You should look into it and modify.'
             }
+            post {
+                success {
+                    echo 'build was successful, Archiving the artifacts'
+                    archiveArtifacts artifacts: '**/*.war'
+                }
+            }
         }
-        stage('Archieve artifacts'){
-            steps{
-                echo 'build was successful, Archieving the artifacts'
-                archiveArtifacts artifacts: '**/*.war'
-            }
-            }
     }
 }
