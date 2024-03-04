@@ -7,12 +7,12 @@ pipeline{
         nodejs "NodeJS"
         // npm "NPM"
     }
-    stages{
-        stage('install dependencies'){
-            steps{
-                sh 'npm install'
-            }
-        }
+    // stages{
+    //     stage('install dependencies'){
+    //         steps{
+    //             sh 'npm install'
+    //         }
+    //     }
         stage('fetch'){
             steps{
                 git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
