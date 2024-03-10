@@ -5,7 +5,7 @@
 # COPY pom.xml .
 # # # Copy the entire project and build it
 # COPY src app/src
-# RUN mvn clean package
+# RUN mvn clean package -X
 
 # Production stage
 FROM eclipse-temurin:17-jre
@@ -17,7 +17,7 @@ WORKDIR /app
 COPY ./target/*.jar app.jar
 
 # expose the port
-EXPOSE 8081
+EXPOSE 8080
 
 # command to run the application
 CMD [ "java", "-jar", "app.jar"]
