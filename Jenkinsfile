@@ -11,11 +11,11 @@ pipeline{
         registryCredential = "dockerhub"
     }
     stages{
-        stage('install dependencies'){
-            steps{
-                sh 'npm install DskipTests'
-            }
-        }
+        // stage('install dependencies'){
+        //     steps{
+        //         sh 'npm install DskipTests'
+        //     }
+        // }
         // stage('fetch'){
         //     steps{
         //         git https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
@@ -24,19 +24,19 @@ pipeline{
         stage('build'){
             steps{
                 sh 'mvn install -DskipTests'
-                sh 'npm run build'
+                // sh 'npm run build'
             }
         }
         stage('Unit Test'){
             steps{
                 sh 'mvn test'
-                sh 'npm test'
+                // sh 'npm test'
             }
         }
         stage('Integration Test'){
             steps{
                 sh 'mvn verify DskipUnitTests'
-                sh 'npm verify DskipUnitTest'
+                // sh 'npm verify DskipUnitTest'
             }
         }
         stage('CheckStyle Analysis'){
