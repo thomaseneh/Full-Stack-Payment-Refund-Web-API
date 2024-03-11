@@ -1,11 +1,11 @@
 pipeline{
     agent any
-    // tools{
-    //     jdk "JDK-17"
-    //     maven "M3"
-    //     // git "Git"
-    //     npm "NPM"
-    // }
+    tools{
+        jdk "JDK-17"
+        maven "M3"
+        // git "Git"
+        // npm "NPM"
+    }
     environment{
         registry = "tomcoder/toprefunder"
         registryCredential = "dockerhub"
@@ -16,11 +16,11 @@ pipeline{
         //         sh 'npm install --skip-tests'
         //     }
         // }
-        // stage('fetch'){
-        //     steps{
-        //         git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
-        //     }
-        // }
+        stage('fetch'){
+            steps{
+                git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
+            }
+        }
         stage('build'){
             steps{
                 sh 'mvn install -DskipTests'
