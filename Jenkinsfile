@@ -56,7 +56,8 @@ pipeline{
         }
         stage('Quality Gate') {
             steps {
-                timeout(time: 1, unit: 'HOURS') {
+                script{
+                    timeout(time: 1, unit: 'HOURS') {
                     def qg = waitForQualityGate()
                     if (qg.status != 'OK') {
                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
@@ -64,7 +65,7 @@ pipeline{
                 }
             }
         }
-        stage('build'){
+        stage('build docker-images'){
             steps{
                 script{
                     images = docker.build registry + ":$BUILD_ID"
