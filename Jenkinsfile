@@ -13,12 +13,12 @@ pipeline{
     stages{
         // stage('install dependencies'){
         //     steps{
-        //         sh 'npm install DskipTests'
+        //         sh 'npm install --skip-tests'
         //     }
         // }
         // stage('fetch'){
         //     steps{
-        //         git https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
+        //         git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
         //     }
         // }
         stage('build'){
@@ -58,14 +58,15 @@ pipeline{
             steps {
                 script{
                     timeout(time: 1, unit: 'HOURS') {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
                     }
                 }
             }
         }
-        stage('build docker-images'){
+        stage('build dockerImages'){
             steps{
                 script{
                     images = docker.build registry + ":$BUILD_ID"
@@ -75,7 +76,7 @@ pipeline{
         stage('upload'){
             steps{
                 script{
-                    docker.withRegistery('', registryCredential){
+                    docker.withRegistry('', registryCredential){
                         images.push("$BUILD_ID")
                         images.push("latest")
                     }
