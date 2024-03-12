@@ -16,11 +16,11 @@ pipeline{
         //         sh 'npm install --skip-tests'
         //     }
         // }
-        stage('fetch'){
-            steps{
-                git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
-            }
-        }
+        // stage('fetch'){
+        //     steps{
+        //         git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
+        //     }
+        // }
         stage('build'){
             steps{
                 sh 'mvn install -DskipTests'
