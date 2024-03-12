@@ -18,30 +18,34 @@ pipeline{
         // }
         stage('fetch'){
             steps{
-                git branch: 'main', url: 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-'
+                git branch: 'main', url: 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
             }
         }
         stage('build'){
             steps{
-                sh 'mvn clean package'
+                bat 'mvn clean package'
+                // sh 'mvn clean package'
                 // sh 'npm run build'
             }
         }
         stage('Unit Test'){
             steps{
-                sh 'mvn test'
+                bat 'mvn test'
+                // sh 'mvn test'
                 // sh 'npm test'
             }
         }
         stage('Integration Test'){
             steps{
-                sh 'mvn verify DskipUnitTests'
+                bat 'mvn verify DskipUnitTests'
+                // sh 'mvn verify DskipUnitTests'
                 // sh 'npm verify DskipUnitTest'
             }
         }
         stage('CheckStyle Analysis'){
             steps{
-                sh 'mvn checkstyle:checkstyle'
+                bat 'mvn checkstyle:checkstyle'
+                // sh 'mvn checkstyle:checkstyle'
             }
             post{
                 success{
@@ -51,7 +55,8 @@ pipeline{
         }
         stage('SonarQube analysis') {
             steps{
-                sh 'mvn sonar:sonar'
+                bat 'mvn sonar:sonar'
+                // sh 'mvn sonar:sonar'
             }
         }
         stage('Quality Gate') {
@@ -85,7 +90,8 @@ pipeline{
         }
         stage('remove unused images'){
             steps{
-                sh 'docker rmi $registry:$BUILD_ID'
+                bat 'docker rmi $registry:$BUILD_ID'
+                // sh 'docker rmi $registry:$BUILD_ID'
             }
         }
         stage('Message') {
