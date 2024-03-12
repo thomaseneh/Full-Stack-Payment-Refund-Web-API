@@ -61,14 +61,16 @@ pipeline{
         }
         stage('CheckStyle Analysis frontend'){
             steps{
-               dir('UI'){
+               script{
+                   dir('UI'){
                     bat 'npm run checkstyle'
                 // sh 'mvn checkstyle:checkstyle'
                }
             }
-            post{
-                success{
-                    echo 'Generated Analysis Result'
+                post{
+                    success{
+                        echo 'Generated Analysis Result'
+                    }
                 }
             }
         }
