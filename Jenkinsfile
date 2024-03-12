@@ -4,7 +4,6 @@ pipeline{
         jdk "JDK-17"
         maven "M3"
         git "Git"
-        node "nodejs"
     }
     environment{
         registry = "tomcoder/toprefunder"
