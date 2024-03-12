@@ -23,7 +23,7 @@ pipeline{
         }
         stage('build'){
             steps{
-                bat 'mvn clean package'
+                bat 'mvn install'
                 // sh 'mvn clean package'
                 // sh 'npm run build'
             }
