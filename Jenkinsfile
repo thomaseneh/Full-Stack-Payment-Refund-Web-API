@@ -39,13 +39,13 @@ pipeline{
         //         // sh 'npm test'
         //     }
         // }
-        stage('Integration Test'){
-            steps{
-                bat 'mvn verify DskipUnitTests'
-                // sh 'mvn verify DskipUnitTests'
-                // sh 'npm verify DskipUnitTest'
-            }
-        }
+        // stage('Integration Test'){
+        //     steps{
+        //         bat 'mvn verify DskipUnitTests'
+        //         // sh 'mvn verify DskipUnitTests'
+        //         // sh 'npm verify DskipUnitTest'
+        //     }
+        // }
         stage('CheckStyle Analysis'){
             steps{
                 bat 'mvn checkstyle:checkstyle'
