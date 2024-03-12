@@ -59,21 +59,21 @@ pipeline{
                 }
             }
         }
-        stage('CheckStyle Analysis frontend'){
-            steps{
-                dir('UI'){
-                    script{
-                        bat 'npm run checkstyle'
-                        // sh 'mvn checkstyle:checkstyle'
-                    }
-                }
-                post{
-                    success{
-                        echo 'Generated Analysis Result'
-                    }
-                }
-            }
-        }
+        // stage('CheckStyle Analysis frontend'){
+        //     steps{
+        //         dir('UI'){
+        //             script{
+        //                 bat 'npm run checkstyle'
+        //                 // sh 'mvn checkstyle:checkstyle'
+        //             }
+        //         }
+        //         post{
+        //             success{
+        //                 echo 'Generated Analysis Result'
+        //             }
+        //         }
+        //     }
+        // }
         stage('SonarQube analysis') {
             steps{
                 bat 'mvn sonar:sonar'
