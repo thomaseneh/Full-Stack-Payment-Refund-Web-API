@@ -21,11 +21,21 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
             }
         }
-        stage('build'){
+        stage('build backend'){
             steps{
-                bat 'mvn install'
+                dir('Server'){
+                  bat 'mvn clean install'
                 // sh 'mvn clean package'
-                // sh 'npm run build'
+                // sh 'npm run build'  
+                }
+            }
+        }
+        stage('build frontend'){
+            steps{
+                dir('UI'){
+                    bat 'npm install'
+                    bat 'npm run build'
+                }
             }
         }
         stage('Unit Test'){
