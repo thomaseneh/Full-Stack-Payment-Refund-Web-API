@@ -76,8 +76,10 @@ pipeline{
         // }
         stage('SonarQube analysis') {
             steps{
-                bat 'mvn sonar:sonar'
+                dir('Server'){
+                    bat 'mvn sonar:sonar'
                 // sh 'mvn sonar:sonar'
+                }
             }
         }
         stage('Quality Gate') {
