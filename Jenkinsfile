@@ -3,7 +3,7 @@ pipeline{
     tools{
         jdk "JDK-17"
         maven "M3"
-        // git "Git"
+        git "Git"
         // npm "NPM"
     }
     environment{
@@ -16,11 +16,11 @@ pipeline{
         //         sh 'npm install --skip-tests'
         //     }
         // }
-        // stage('fetch'){
-        //     steps{
-        //         git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
-        //     }
-        // }
+        stage('fetch'){
+            steps{
+                git 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
+            }
+        }
         stage('build'){
             steps{
                 sh 'mvn install'
