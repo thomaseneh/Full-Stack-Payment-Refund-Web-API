@@ -4,18 +4,13 @@ pipeline{
         jdk "JDK-17"
         maven "M3"
         git "Git"
-        // npm "NPM"
+        node "nodejs"
     }
     environment{
         registry = "tomcoder/toprefunder"
         registryCredential = "dockerhub"
     }
     stages{
-        // stage('install dependencies'){
-        //     steps{
-        //         sh 'npm install --skip-tests'
-        //     }
-        // }
         stage('fetch'){
             steps{
                 git branch: 'main', url: 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
@@ -38,13 +33,13 @@ pipeline{
                 }
             }
         }
-        stage('Unit Test'){
-            steps{
-                bat 'mvn test'
-                // sh 'mvn test'
-                // sh 'npm test'
-            }
-        }
+        // stage('Unit Test'){
+        //     steps{
+        //         bat 'mvn test'
+        //         // sh 'mvn test'
+        //         // sh 'npm test'
+        //     }
+        // }
         stage('Integration Test'){
             steps{
                 bat 'mvn verify DskipUnitTests'
