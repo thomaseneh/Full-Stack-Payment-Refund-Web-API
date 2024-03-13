@@ -48,7 +48,7 @@ pipeline{
         // }
         stage('CheckStyle Analysis backend'){
             steps{
-               dir('Server'){
+               dir('UI'){
                     bat 'mvn checkstyle:checkstyle'
                 // sh 'mvn checkstyle:checkstyle'
                }
@@ -79,12 +79,13 @@ pipeline{
                 scannerHome = tool 'sonarQubeScanner'
             }
             steps{
-                dir('Server'){
+                dir('UI'){
                     withSonarQubeEnv('sonarScanner'){
                         bat """\"${scannerHome}\\bin\\sonar-scanner\" -Dsonar.projectKey=refundAPI \
                         -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API- \
-                        -Dsonar.source=src/ \
-                        -Dsonar.exclusions=**/*.java"""
+                        -Dsonar.source=src/ \"""
+                        // -Dsonar.java.binary=target/test-classes/com/
+                        // -Dsonar.exclusions=**/*.java"""
                         
                         // sh ''' ${scannerHome}/bin/sonar-scanner -Dsonar.projectKey = refundAPI \
                         // -Dsonar.projectName = Full-Stack-Payment-Refund-Web-API- '''
