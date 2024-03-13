@@ -82,7 +82,9 @@ pipeline{
                 dir('Server'){
                     withSonarQubeEnv('sonarScanner'){
                         bat """\"${scannerHome}\\bin\\sonar-scanner\" -Dsonar.projectKey=refundAPI \
-                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API-"""
+                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API- \
+                        -Dsonar.source=src/ \
+                        -Dsonar.java.binary=target\test-classes\com\toprefunder\refund\refundWebAPIServer"""
                         
                         // sh ''' ${scannerHome}/bin/sonar-scanner -Dsonar.projectKey = refundAPI \
                         // -Dsonar.projectName = Full-Stack-Payment-Refund-Web-API- '''
