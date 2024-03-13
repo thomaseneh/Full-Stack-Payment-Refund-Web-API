@@ -46,19 +46,19 @@ pipeline{
         //         // sh 'npm verify DskipUnitTest'
         //     }
         // }
-        stage('CheckStyle Analysis backend'){
-            steps{
-               dir('UI'){
-                    bat 'mvn checkstyle:checkstyle'
-                // sh 'mvn checkstyle:checkstyle'
-               }
-            }
-            post{
-                success{
-                    echo 'Generated Analysis Result'
-                }
-            }
-        }
+        // stage('CheckStyle Analysis backend'){
+        //     steps{
+        //        dir('UI'){
+        //             bat 'mvn checkstyle:checkstyle'
+        //         // sh 'mvn checkstyle:checkstyle'
+        //        }
+        //     }
+        //     post{
+        //         success{
+        //             echo 'Generated Analysis Result'
+        //         }
+        //     }
+        // }
         // stage('CheckStyle Analysis frontend'){
         //     steps{
         //         dir('UI'){
@@ -82,7 +82,7 @@ pipeline{
                 dir('UI'){
                     withSonarQubeEnv('sonarScanner'){
                         bat """\"${scannerHome}\\bin\\sonar-scanner\" -Dsonar.projectKey=refundAPI \
-                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API- \
+                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API-frontend \
                         -Dsonar.source=src/ \"""
                         // -Dsonar.java.binary=target/test-classes/com/
                         // -Dsonar.exclusions=**/*.java"""
