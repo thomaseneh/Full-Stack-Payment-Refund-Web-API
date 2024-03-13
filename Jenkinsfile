@@ -84,7 +84,7 @@ pipeline{
                         bat 'mvn sonar:sonar'
                 // sh 'mvn sonar:sonar'
                     }
-                    timeout(time: 10, unit: 'MUNITES'){
+                    timeout(time: 10, unit: 'MINUTES'){
                         waitForQualityGate abortPipeline: true
                     }
                 }
