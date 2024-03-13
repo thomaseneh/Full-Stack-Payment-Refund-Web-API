@@ -84,18 +84,21 @@ pipeline{
                         bat 'mvn sonar:sonar'
                 // sh 'mvn sonar:sonar'
                     }
-                }
-            }
-        }
-        stage('Quality Gate') {
-            steps {
-                script{
-                    timeout(time: 10, unit: 'MINUTES') {
+                    timeout(time: 10, unit: 'MUNITES'){
                         waitForQualityGate abortPipeline: true
                     }
                 }
             }
         }
+        // stage('Quality Gate') {
+        //     steps {
+        //         script{
+        //             timeout(time: 10, unit: 'MINUTES') {
+        //                 waitForQualityGate abortPipeline: true
+        //             }
+        //         }
+        //     }
+        // }
         stage('build dockerImages'){
             steps{
                 script{
