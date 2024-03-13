@@ -81,22 +81,24 @@ pipeline{
             steps{
                 dir('Server'){
                     withSonarQubeEnv('sonarQS'){
-                        bat 'mvn sonar:sonar'
-                // sh 'mvn sonar:sonar'
+                        ``` sh $scannerHome/bin/sonar-scanner -Dsonar.projectKey = refundAPI \
+                        -Dsonar.projectName = Full-Stack-Payment-Refund-Web-API- ```
+                        // bat 'mvn sonar:sonar'
+                        // sh 'mvn sonar:sonar'
                 }
             }
         }
     }
         
-        // stage('Quality Gate') {
-        //     steps {
-        //         script{
-        //             timeout(time: 10, unit: 'MINUTES') {
-        //                 waitForQualityGate abortPipeline: true
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Quality Gate') {
+            steps {
+                script{
+                    timeout(time: 10, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
+            }
+        }
         stage('build dockerImages'){
             steps{
                 script{
