@@ -76,7 +76,7 @@ pipeline{
         // }
         stage('SonarQube analysis') {
             environment{
-                scannerHome = tool 'mySonarScanner'
+                scannerHome = tool 'sonarQubeScanner'
             }
             steps{
                 dir('Server'){
