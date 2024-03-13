@@ -84,7 +84,7 @@ pipeline{
                         bat """\"${scannerHome}\\bin\\sonar-scanner\" -Dsonar.projectKey=refundAPI \
                         -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API- \
                         -Dsonar.source=src/ \
-                        -Dsonar.java.binary=target/test-classes/com/toprefunder/refund/refundWebAPIServer"""
+                        -Dsonar.java.binary=D:\Personal\Workspace\DevOps\toprefunder-DevOps\Full-Stack-Payment-Refund-Web-API-\Server\target\test-classes\com\toprefunder\refund\refundWebAPIServer\RefundWebApiServerApplicationTests.class"""
                         
                         // sh ''' ${scannerHome}/bin/sonar-scanner -Dsonar.projectKey = refundAPI \
                         // -Dsonar.projectName = Full-Stack-Payment-Refund-Web-API- '''
