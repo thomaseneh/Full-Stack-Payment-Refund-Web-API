@@ -82,8 +82,8 @@ pipeline{
                 dir('UI'){
                     withSonarQubeEnv('sonarScanner'){
                         bat """\"${scannerHome}\\bin\\sonar-scanner\" -Dsonar.projectKey=refundAPI \
-                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API-frontend \
-                        -Dsonar.source=src/ \"""
+                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API-frontend \"""
+                        // -Dsonar.source=src/ \"""
                         // -Dsonar.java.binary=target/test-classes/com/
                         // -Dsonar.exclusions=**/*.java"""
                         
@@ -94,8 +94,7 @@ pipeline{
                 }
             }
         }
-    }
-        
+    } 
         stage('Quality Gate') {
             steps {
                 script{
