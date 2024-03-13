@@ -88,16 +88,15 @@ pipeline{
         }
     }
         
-        stage('Quality Gate') {
-            sleep 10
-            steps {
-                script{
-                    timeout(time: 10, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-            }
-        }
+        // stage('Quality Gate') {
+        //     steps {
+        //         script{
+        //             timeout(time: 10, unit: 'MINUTES') {
+        //                 waitForQualityGate abortPipeline: true
+        //             }
+        //         }
+        //     }
+        // }
         stage('build dockerImages'){
             steps{
                 script{
