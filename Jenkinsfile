@@ -87,8 +87,9 @@ pipeline{
             }
         }
     }
-        sleep 10
+        
         stage('Quality Gate') {
+            sleep 10
             steps {
                 script{
                     timeout(time: 10, unit: 'MINUTES') {
