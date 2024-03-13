@@ -80,7 +80,7 @@ pipeline{
             }
             steps{
                 dir('Server'){
-                    withSonarQubeEnv('sonarQS'){
+                    withSonarQubeEnv('sonar-scanner'){
                         sh ''' $scannerHome/bin/sonar-scanner -Dsonar.projectKey = refundAPI \
                         -Dsonar.projectName = Full-Stack-Payment-Refund-Web-API- '''
                         // bat 'mvn sonar:sonar'
