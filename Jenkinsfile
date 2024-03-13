@@ -83,22 +83,19 @@ pipeline{
                     withSonarQubeEnv('sonarQS'){
                         bat 'mvn sonar:sonar'
                 // sh 'mvn sonar:sonar'
-                    }
-                    timeout(time: 10, unit: 'MINUTES'){
+                }
+            }
+        }
+        sleep 10
+        stage('Quality Gate') {
+            steps {
+                script{
+                    timeout(time: 10, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
                     }
                 }
             }
         }
-        // stage('Quality Gate') {
-        //     steps {
-        //         script{
-        //             timeout(time: 10, unit: 'MINUTES') {
-        //                 waitForQualityGate abortPipeline: true
-        //             }
-        //         }
-        //     }
-        // }
         stage('build dockerImages'){
             steps{
                 script{
