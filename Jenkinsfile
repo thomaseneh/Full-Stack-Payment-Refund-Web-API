@@ -46,40 +46,40 @@ pipeline{
         //         // sh 'npm verify DskipUnitTest'
         //     }
         // }
-        // stage('CheckStyle Analysis backend'){
-        //     steps{
-        //        dir('UI'){
-        //             bat 'mvn checkstyle:checkstyle'
-        //         // sh 'mvn checkstyle:checkstyle'
-        //        }
-        //     }
-        //     post{
-        //         success{
-        //             echo 'Generated Analysis Result'
-        //         }
-        //     }
-        // }
-        // stage('CheckStyle Analysis frontend'){
-        //     steps{
-        //         dir('UI'){
-        //             script{
-        //                 bat 'npm run checkstyle'
-        //                 // sh 'mvn checkstyle:checkstyle'
-        //             }
-        //         }
-        //         post{
-        //             success{
-        //                 echo 'Generated Analysis Result'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('CheckStyle Analysis backend'){
+            steps{
+               dir('Server'){
+                    bat 'mvn checkstyle:checkstyle'
+                // sh 'mvn checkstyle:checkstyle'
+               }
+            }
+            post{
+                success{
+                    echo 'Generated Analysis Result'
+                }
+            }
+        }
+        stage('CheckStyle Analysis frontend'){
+            steps{
+                dir('UI'){
+                    script{
+                        bat 'npm run checkstyle'
+                        // sh 'mvn checkstyle:checkstyle'
+                    }
+                }
+                post{
+                    success{
+                        echo 'Generated Analysis Result'
+                    }
+                }
+            }
+        }
         stage('SonarQube analysis') {
             environment{
                 scannerHome = tool 'sonarQubeScanner'
             }
             steps{
-                dir('UI'){
+                dir('Server'){
                     withSonarQubeEnv('sonarScanner'){
                         bat """/"${scannerHome}//bin//sonar-scanner/" -Dsonar.projectKey=refundAPI \
                         -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API-frontend \"""
@@ -87,19 +87,20 @@ pipeline{
             }
         }
     }
-        stage('Quality Gate') {
-            steps {
-                script{
-                    timeout(time: 10, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-            }
-        }
+        // stage('Quality Gate') {
+        //     steps {
+        //         script{
+        //             timeout(time: 10, unit: 'MINUTES') {
+        //                 waitForQualityGate abortPipeline: true
+        //             }
+        //         }
+        //     }
+        // }
         stage('build dockerImages'){
             steps{
                 script{
-                    images = docker.build registry + ":$BUILD_ID"
+                    images = docker-compose up registry + ":$BUILD_ID"
+                    // bat 'docker-compose up + ':$Build_ID'
                 }
             }
         }
