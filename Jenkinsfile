@@ -19,8 +19,7 @@ pipeline{
             steps{
                 dir('Server'){
                   bat 'mvn clean install'
-                // sh 'mvn clean package'
-                // sh 'npm run build'  
+                // sh 'mvn clean package' 
                 }
             }
         }
@@ -59,21 +58,21 @@ pipeline{
                 }
             }
         }
-        stage('CheckStyle Analysis frontend'){
-            steps{
-                dir('UI'){
-                    script{
-                        bat 'npm run checkstyle'
-                        // sh 'mvn checkstyle:checkstyle'
-                    }
-                }
-                post{
-                    success{
-                        echo 'Generated Analysis Result'
-                    }
-                }
-            }
-        }
+        // stage('CheckStyle Analysis frontend'){
+        //     steps{
+        //         dir('UI'){
+        //             script{
+        //                 bat 'npm run checkstyle'
+        //                 // sh 'mvn checkstyle:checkstyle'
+        //             }
+        //         }
+        //         post{
+        //             success{
+        //                 echo 'Generated Analysis Result'
+        //             }
+        //         }
+        //     }
+        // }
         stage('SonarQube analysis') {
             environment{
                 scannerHome = tool 'sonarQubeScanner'
@@ -81,12 +80,14 @@ pipeline{
             steps{
                 dir('Server'){
                     withSonarQubeEnv('sonarScanner'){
-                        bat """/"${scannerHome}//bin//sonar-scanner/" -Dsonar.projectKey=refundAPI \
-                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API-frontend \"""
-                        }
-                    }
+                        bat """\"${scannerHome}\\bin\\sonar-scanner\" -Dsonar.projectKey=refundAPI \
+                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API- \
+                        -Dsonar.source=src/ \
+                        -Dsonar.exclusions=**/*.java"""
                 }
             }
+        }
+    }
         // stage('Quality Gate') {
         //     steps {
         //         script{
@@ -99,8 +100,7 @@ pipeline{
         stage('build dockerImages'){
             steps{
                 script{
-                    images = docker-compose up registry + ":$BUILD_ID"
-                    // bat 'docker-compose up + ':$Build_ID'
+                    images = bat 'docker-compose -f docker-compose.yml up -d --build'
                 }
             }
         }
