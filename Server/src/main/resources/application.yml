@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://tomcoderrefund.mysql.database.azure.com/toprefunder?useSSL=true
-    url: jdbc:mysql://localhost:3306/toprefunder
+    #    url: jdbc:mysql://tomcoderrefund.mysql.database.azure.com/toprefunder?useSSL=true
+    url: jdbc:mysql://localhost:3307/toprefunder
     username: root
     password: root
 
