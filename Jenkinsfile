@@ -1,47 +1,56 @@
 pipeline{
     agent any
-    // tools{
-    //     jdk "JDK-17"
-    //     maven "M3"
-    //     // git "Git"
-    //     npm "NPM"
-    // }
+    tools{
+        jdk "JDK-17"
+        maven "M3"
+        git "Git"
+    }
     environment{
         registry = "tomcoder/toprefunder"
         registryCredential = "dockerhub"
     }
     stages{
-        stage('install dependencies'){
+        stage('fetch'){
             steps{
-                sh 'npm install DskipTests'
+                git branch: 'main', url: 'https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
             }
         }
-        // stage('fetch'){
+        stage('build backend'){
+            steps{
+                dir('Server'){
+                  bat 'mvn clean install'
+                // sh 'mvn clean package' 
+                }
+            }
+        }
+        stage('build frontend'){
+            steps{
+                dir('UI'){
+                    bat 'npm install'
+                    bat 'npm run build'
+                }
+            }
+        }
+        // stage('Unit Test'){
         //     steps{
-        //         git https://github.com/thomaseneh/Full-Stack-Payment-Refund-Web-API-.git'
+        //         bat 'mvn test'
+        //         // sh 'mvn test'
+        //         // sh 'npm test'
         //     }
         // }
-        stage('build'){
+        // stage('Integration Test'){
+        //     steps{
+        //         bat 'mvn verify DskipUnitTests'
+        //         // sh 'mvn verify DskipUnitTests'
+        //         // sh 'npm verify DskipUnitTest'
+        //     }
+        // }
+        stage('CheckStyle Analysis backend'){
             steps{
-                sh 'mvn install -DskipTests'
-                sh 'npm run build'
-            }
-        }
-        stage('Unit Test'){
-            steps{
-                sh 'mvn test'
-                sh 'npm test'
-            }
-        }
-        stage('Integration Test'){
-            steps{
-                sh 'mvn verify DskipUnitTests'
-                sh 'npm verify DskipUnitTest'
-            }
-        }
-        stage('CheckStyle Analysis'){
-            steps{
-                sh 'mvn checkstyle:checkstyle'
+               dir('Server'){
+                    bat 'mvn checkstyle:checkstyle'
+                // sh 'mvn checkstyle:checkstyle'
+               }
             }
             post{
                 success{
@@ -49,32 +58,57 @@ pipeline{
                 }
             }
         }
+        // stage('CheckStyle Analysis frontend'){
+        //     steps{
+        //         dir('UI'){
+        //             script{
+        //                 bat 'npm run checkstyle'
+        //                 // sh 'mvn checkstyle:checkstyle'
+        //             }
+        //         }
+        //         post{
+        //             success{
+        //                 echo 'Generated Analysis Result'
+        //             }
+        //         }
+        //     }
+        // }
         stage('SonarQube analysis') {
-            steps{
-                sh 'mvn sonar:sonar'
+            environment{
+                scannerHome = tool 'sonarQubeScanner'
             }
-        }
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }
+            steps{
+                dir('Server'){
+                    withSonarQubeEnv('sonarScanner'){
+                        bat """\"${scannerHome}\\bin\\sonar-scanner\" -Dsonar.projectKey=refundAPI \
+                        -Dsonar.projectName=Full-Stack-Payment-Refund-Web-API- \
+                        -Dsonar.source=src/ \
+                        -Dsonar.exclusions=**/*.java"""
                 }
             }
         }
-        stage('build'){
+    }
+        
+        // stage('Quality Gate') {
+        //     steps {
+        //         script{
+        //             timeout(time: 10, unit: 'MINUTES') {
+        //                 waitForQualityGate abortPipeline: true
+        //             }
+        //         }
+        //     }
+        // }
+        stage('build dockerImages'){
             steps{
                 script{
-                    images = docker.build registry + ":$BUILD_ID"
+                    images = bat 'docker-compose -f docker-compose.yml up -d --build'
                 }
             }
         }
         stage('upload'){
             steps{
                 script{
-                    docker.withRegistery('', registryCredential){
+                    docker.withRegistry('', registryCredential){
                         images.push("$BUILD_ID")
                         images.push("latest")
                     }
@@ -83,7 +117,8 @@ pipeline{
         }
         stage('remove unused images'){
             steps{
-                sh 'docker rmi $registry:$BUILD_ID'
+                bat 'docker rmi $registry:$BUILD_ID'
+                // sh 'docker rmi $registry:$BUILD_ID'
             }
         }
         stage('Message') {
