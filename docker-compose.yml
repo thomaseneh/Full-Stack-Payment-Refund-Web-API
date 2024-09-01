@@ -1,47 +1,44 @@
-version: '2.24.6'
-
 services:
+  frontend:
+    build:
+      context: ./UI
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - mynetwork
+    depends_on:
+      - backend
   backend:
-    build: 
+    build:
       context: ./Server
-    restart: always
+      dockerfile: Dockerfile
     ports:
       - 8080:8080
-    environment: 
-      spring.datasource.url: jdbc:mysql://Database:3307/toprefunder
-      spring.datasource.username: root
-      spring.datasource.password: root
-    depends_on:
-      - Database
-    networks:
-      - my-network
-
-  frontend:
-    build: 
-      context: ./UI
-    restart: always
-    ports:
-      - 5173:5173
-    networks:
-      - my-network
-    hostname: frontend
-
-  Database:
-    image: mysql:8.0-debian
-    restart: always
-    ports:
-      - 3307:3307
-    volumes:
-      - toprefunder:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: toprefunder
+      - spring.datasource.url=jdbc:mysql://database:3307/toprefunder
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+    depends_on:
+      - database
     networks:
-      - my-network
+      - mynetwork
+  database:
+    image: mysql:8.0-oracle
+    ports:
+      - 3307:3306
+    networks:
+      - mynetwork
+    volumes:
+      - mysql_volume:/var/lib/mysql
+    environment:
+      # - MYSQL_USERNAME=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=toprefunder
 
 volumes:
-  toprefunder:
+  mysql_volume:
 
 networks:
-  my-network:
+  mynetwork:
     driver: bridge

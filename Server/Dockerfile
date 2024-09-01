@@ -1,23 +1,12 @@
-# # Build stage
-# FROM maven:latest As build
-# WORKDIR /home/app
-# # Copy only the POM file to leverage Docker cache
-# COPY pom.xml .
-# # # Copy the entire project and build it
-# COPY src app/src
-# RUN mvn clean package -X
-
-# Production stage
-FROM eclipse-temurin:17-jre
-
-# create and set a working directory
+FROM eclipse-temurin:17-jdk-alpine AS builder
+RUN apk update && apk add maven
 WORKDIR /app
+COPY pom.xml /app/pom.xml
+COPY src /app/src
+RUN mvn clean package -DskipTests
 
-# cope the built file to the docker working directory
-COPY ./target/*.jar app.jar
-
-# expose the port
+FROM gcr.io/distroless/java17-debian11
+WORKDIR /app
+COPY --from=builder /app/target/refundWebAPI-Server-0.0.1-SNAPSHOT.jar /app/refundWebAPI-Server-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
-
-# command to run the application
-CMD [ "java", "-jar", "app.jar"]
+CMD [ "/app/refundWebAPI-Server-0.0.1-SNAPSHOT.jar" ]

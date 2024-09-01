@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import homeBackground from '../../assets/homeBackground.jpg';
 
 export const WrapperDiv = styled.div`
   color: white;
@@ -6,7 +7,8 @@ export const WrapperDiv = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 0;
   padding: 0;
-  background-image: url("/src/assets/homeBackground.jpg");
+  background-image: url(${homeBackground});
+  // background-image: url("../assets/homeBackground.jpg");
   background-size: cover;
   height: 100vh;
   background-position: center;
