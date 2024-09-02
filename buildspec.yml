@@ -4,8 +4,9 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
-      - yum -y update
-      - yum install -y maven npm
+      - which yum || which dnf
+      - yum -y update || dnf -y update
+      - yum install -y maven npm || dnf install -y maven npm
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
