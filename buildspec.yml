@@ -42,7 +42,7 @@ phases:
       - cd ./Server
       - mvn test || true
       - mvn clean verify || true
-      - mvn install -DskipTests
+      - mvn clean build -DskipTests -x
       - cd ..
 
       # sonarQuebe scan
