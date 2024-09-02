@@ -1,0 +1,74 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - apt-get update -y
+      - apt-get install -y maven npm
+    finally:
+      - echo This always runs even if the update or install command fails 
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 217874473810.dkr.ecr.us-east-1.amazonaws.com
+    finally:
+      - echo This always runs even if the login command fails 
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+
+      # frontend
+      - cd ./UI
+      - npm install
+      - npm lint
+      - npm run build
+      - cd ..
+
+      # backend
+      - cd ./Server
+      - mvn install -DskipTests
+      - mvn test
+      - mvn clean verify
+      - mvn clean packgage -DskipTests
+      - cd ..
+
+      # sonarQuebe scan
+      - sonar-scanner \
+        -Dsonar.projectKey=toprefunder \
+        -Dsonar.projectName='toprefunder' \
+        -Dsonar.sources=./Server/src, ./UI/src \
+        -Dsonar.host.url=http://localhost:9000 \
+        -Dsonar.token=squ_444af03efed24170fe0c0a382fe82e987df14998
+
+      # build the images
+      - docker-compose -f docker-compose.yml build
+
+      # Tag the images
+      - docker tag full-stack-payment-refund-web-api--backend:latest 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:backend-001
+      - docker tag full-stack-payment-refund-web-api--frontend:latest 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:frontend-001
+      - docker tag mysql:8.0-oracle 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:database-001
+
+    finally:
+      - echo This always runs even if the install command fails
+
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+      - echo Push to ecr
+      - docker push 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:backend-001
+      - docker push 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:frontend-001
+      - docker push 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:database-001
+
+artifacts:
+  files:
+    - ./Server/target/refundWebAPI-Server-0.0.1-SNAPSHOT.jar
+    - ./UI/dist/**
+  discard-paths: yes
+  
+cache:
+  paths:
+    - '/root/.m2/**/*'
+    - './UI/node_modules/**/*'
