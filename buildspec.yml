@@ -10,7 +10,7 @@ phases:
     commands:
       - echo Entered the install phase...
       - apt-get -y update
-      - apt-get install -y java-17-openjdk-devel maven
+      - apt-get install -y maven
       - apt-get install -y npm
     finally:
       - echo This always runs even if the update or install command fails 
