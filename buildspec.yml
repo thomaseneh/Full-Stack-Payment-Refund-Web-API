@@ -7,9 +7,12 @@ phases:
     commands:
       - echo Entered the install phase...
       - apt-get -y update
-      - export JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
+      # - export JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
       - apt-get install -y maven
       - apt-get install -y npm
+      - apt-get install -y openjdk-17-jdk
+      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - java -version
       - curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
       - unzip sonar-scanner.zip -d /opt/
       - export PATH=$PATH:/opt/sonar-scanner-4.8.0.2856-linux/bin
