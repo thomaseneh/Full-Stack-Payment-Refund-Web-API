@@ -42,14 +42,14 @@ phases:
       - mvn clean verify || true
       - mvn clean install -DskipTests
       - cd ..
-
-      # sonarQuebe scan
+      
+      # sonarQube scan
       - sonar-scanner \
         -Dsonar.projectKey=toprefunder \
-        -Dsonar.projectName='toprefunder' \
-        -Dsonar.sources=./Server/src, ./UI/src \
+        -Dsonar.projectName=toprefunder \
+        -Dsonar.sources=./Server/src,./UI/src \
         -Dsonar.host.url=http://localhost:9000 \
-        -Dsonar.token=squ_444af03efed24170fe0c0a382fe82e987df14998
+        -Dsonar.login=squ_444af03efed24170fe0c0a382fe82e987df14998
 
       # build the images
       - docker-compose -f docker-compose.yml build
