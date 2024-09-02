@@ -13,11 +13,6 @@ phases:
       - curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
       - unzip sonar-scanner.zip -d /opt/
       - export PATH=$PATH:/opt/sonar-scanner-4.8.0.2856-linux/bin
-      - sonar-scanner --version
-      - java -version
-      - mvn -version
-      - node -v
-      - npm -v
   
   # login to AWS ECR
   pre_build:
@@ -42,7 +37,7 @@ phases:
       - cd ./Server
       - mvn test || true
       - mvn clean verify || true
-      - mvn clean build -DskipTests
+      - mvn clean install -DskipTests
       - cd ..
 
       # sonarQuebe scan
