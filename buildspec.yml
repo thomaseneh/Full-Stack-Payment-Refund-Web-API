@@ -34,9 +34,9 @@ phases:
 
       # backend
       - cd ./Server
-      # - mvn test || true
-      # - mvn clean verify || true
-      - mvn clean package -DskipTests -X
+      - mvn test || true
+      - mvn clean verify || true
+      - mvn clean install -DskipTests -X
       - cd ..
 
       # sonarQuebe scan
