@@ -9,8 +9,9 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
-      - yum -y update
-      - yum install -y java-17-openjdk-devel maven npm
+      - apt-get -y update
+      - apt-get install -y java-17-openjdk-devel maven
+      - apt-get install -y npm
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
