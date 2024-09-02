@@ -34,10 +34,10 @@ phases:
 
       # backend
       - cd ./Server
-      - mvn install -DskipTests
+      # - mvn install -DskipTests
       - mvn test || true
       - mvn clean verify || true
-      - mvn clean packgage -DskipTests
+      - mvn clean package -DskipTests
       - cd ..
 
       # sonarQuebe scan
