@@ -1,12 +1,15 @@
 version: 0.2
 
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+
 phases:
   install:
     commands:
       - echo Entered the install phase...
-      # - which yum || which dnf
-      - dnf -y update
-      - dnf install -y maven npm
+      - mvn -y update
+      - mvn install -y maven npm
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
