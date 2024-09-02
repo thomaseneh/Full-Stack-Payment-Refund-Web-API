@@ -8,8 +8,8 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
-      - mvn -y update
-      - mvn install -y maven npm
+      - apt-get -y update
+      - apt-get install -y maven npm
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
