@@ -1,29 +1,28 @@
 version: 0.2
 
-env:
-  variables:
-    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
-    MAVEN_HOME: "/usr/share/maven"
-
 phases:
   install:
+    runtime-versions:
+      java: corretto11
     commands:
       - echo Entered the install phase...
       - apt-get -y update
+      - export JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
       - apt-get install -y maven
       - apt-get install -y npm
+      - apt-get install -y sonar-scanner
       - java -version
       - mvn -version
       - node -v
       - npm -v
-    finally:
-      - echo This always runs even if the update or install command fails 
+  
+  # login to AWS ECR
   pre_build:
     commands:
       - echo Entered the pre_build phase...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 217874473810.dkr.ecr.us-east-1.amazonaws.com
-    finally:
-      - echo This always runs even if the login command fails 
+  
+  # Build the images 
   build:
     commands:
       - echo Entered the build phase...
@@ -58,10 +57,8 @@ phases:
       - docker tag full-stack-payment-refund-web-api--backend:latest 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:backend-001
       - docker tag full-stack-payment-refund-web-api--frontend:latest 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:frontend-001
       - docker tag mysql:8.0-oracle 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:database-001
-
-    finally:
-      - echo This always runs even if the install command fails
-
+  
+  # deploy the images to AWS ECR
   post_build:
     commands:
       - echo Entered the post_build phase...
