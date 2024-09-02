@@ -10,7 +10,10 @@ phases:
       - export JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
       - apt-get install -y maven
       - apt-get install -y npm
-      - apt-get install -y sonar-scanner
+      - curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+      - unzip sonar-scanner.zip -d /opt/
+      - export PATH=$PATH:/opt/sonar-scanner-4.8.0.2856-linux/bin
+      - sonar-scanner --version
       - java -version
       - mvn -version
       - node -v
