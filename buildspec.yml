@@ -1,5 +1,10 @@
 version: 0.2
 
+
+env:
+  secrets-manager:
+    SONAR_TOKEN: /myproject/sonarqube/token
+
 phases:
   install:
     runtime-versions:
@@ -45,11 +50,11 @@ phases:
 
       # sonarQube scan
       - sonar-scanner \
-        -Dsonar.projectKey=toprefunder \
-        -Dsonar.projectName=toprefunder \
-        -Dsonar.sources=./Server/src,./UI/src \
-        -Dsonar.host.url=http://localhost:9000 \
-        -Dsonar.login=squ_444af03efed24170fe0c0a382fe82e987df14998
+          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+          -Dsonar.projectName=$SONAR_PROJECT_NAME \
+          -Dsonar.sources=./Server/src,./UI/src \
+          -Dsonar.host.url=$SONAR_HOST_URL \
+          -Dsonar.login=$SONAR_TOKEN
 
       # build the images
       - docker-compose -f docker-compose.yml build
@@ -64,6 +69,7 @@ phases:
     commands:
       - echo Entered the post_build phase...
       - echo Build completed on `date`
+      - ./check_quality_gate.sh
       - echo Push to ecr
       - docker push 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:backend-001
       - docker push 217874473810.dkr.ecr.us-east-1.amazonaws.com/toprefunder-ecr:frontend-001
