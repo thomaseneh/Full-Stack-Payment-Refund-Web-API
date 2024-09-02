@@ -3,13 +3,14 @@ version: 0.2
 env:
   variables:
     JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64"
+    MAVEN_HOME: "/usr/share/maven"
 
 phases:
   install:
     commands:
       - echo Entered the install phase...
-      # - sudo yum -y update
-      - dnf install -y java-17-openjdk-devel maven npm
+      - yum -y update
+      - yum install -y java-17-openjdk-devel maven npm
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
