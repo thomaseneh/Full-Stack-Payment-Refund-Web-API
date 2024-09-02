@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64"
+    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
     MAVEN_HOME: "/usr/share/maven"
 
 phases:
@@ -36,7 +36,7 @@ phases:
       - cd ./Server
       - mvn test || true
       - mvn clean verify || true
-      - mvn clean install -DskipTests -X
+      - mvn install -DskipTests
       - cd ..
 
       # sonarQuebe scan
