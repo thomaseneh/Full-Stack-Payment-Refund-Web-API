@@ -8,7 +8,7 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
-      - sudo yum -y update
+      # - sudo yum -y update
       - sudo yum install -y java-17-openjdk-devel maven npm
     finally:
       - echo This always runs even if the update or install command fails 
