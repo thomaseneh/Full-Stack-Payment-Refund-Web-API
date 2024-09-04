@@ -4,7 +4,7 @@ spring:
     #    url: jdbc:mysql://tomcoderrefund.mysql.database.azure.com/toprefunder?useSSL=true
     url: jdbc:mysql://database:3306/toprefunder
     username: root
-    password: root
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   security:
     oauth2:
