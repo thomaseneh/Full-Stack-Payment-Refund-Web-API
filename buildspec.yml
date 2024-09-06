@@ -18,8 +18,9 @@ phases:
       java: corretto11
     commands:
       - echo Entered the install phase...
-      - apt-get install -y curl gnupg
-      - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+      - hwclock --hctosys
+      # - apt-get install -y curl gnupg
+      # - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
       - apt-get -y update
       - apt-get install -y maven
       - apt-get install -y npm
