@@ -6,6 +6,11 @@ env:
     SONAR_TOKEN: /myproject/sonarqube/token
     MYSQL_ROOT: mysql/root/password
     MYSQL_DB: mysql/db/password
+  
+  parameter-store:
+    SONAR_PROJECT_KEY: sonar-projectKe
+    SONAR_HOST_URL: sonar-host-url
+    SONAR_PROJECT_NAME: sonar-project-name
 
 phases:
   install:
@@ -39,7 +44,7 @@ phases:
       # frontend
       - cd ./UI
       - npm install
-      - npm lint || true
+      - npm run lint || true
       - npm run build
       - cd ..
 
