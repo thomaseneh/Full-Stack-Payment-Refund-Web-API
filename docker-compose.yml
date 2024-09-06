@@ -1,9 +1,9 @@
 services:
   frontend:
-    image: frontend
-    # build:
-    #   context: ./UI
-    #   dockerfile: Dockerfile
+    # image: frontend
+    build:
+      context: ./UI
+      dockerfile: Dockerfile
     ports:
       - 80:80
     networks:
@@ -11,16 +11,16 @@ services:
     depends_on:
       - backend
   backend:
-    image: backend
-    # build:
-    #   context: ./Server
-    #   dockerfile: Dockerfile
+    # image: backend
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
     ports:
       - 8080:8080
     environment:
       - spring.datasource.url=jdbc:mysql://database:3307/toprefunder
       - spring.datasource.username=root
-      - spring.datasource.password=/run/secrets/db-password
+      - spring.datasource.password=${MYSQL_DATABASE}
     depends_on:
       - database
     networks:
@@ -28,9 +28,9 @@ services:
 
   database:
     image: mysql:8.0-oracle
-    secrets:
-      - db-password
-      - root_password
+    # secrets:
+    #   - db-password
+    #   - root_password
     ports:
       - 3307:3306
     networks:
@@ -38,14 +38,15 @@ services:
     volumes:
       - full-stack-payment-refund-web-api-_mysql_volume:/var/lib/mysql
     environment:
-      # - MYSQL_USERNAME=root
-      - MYSQL_ROOT_PASSWORD=/run/secrets/root_password
+      - MYSQL_USERNAME=root
+      # - MYSQL_ROOT_PASSWORD=/run/secrets/root_password
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT}
       - MYSQL_DATABASE=toprefunder
-secrets:
-  db-password:
-    external: true
-  root_password:
-    external: true
+# secrets:
+#   db-password:
+#     external: true
+#   root_password:
+#     external: true
 
 volumes:
   full-stack-payment-refund-web-api-_mysql_volume:

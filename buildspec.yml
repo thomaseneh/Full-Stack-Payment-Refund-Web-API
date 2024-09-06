@@ -4,6 +4,8 @@ version: 0.2
 env:
   secrets-manager:
     SONAR_TOKEN: /myproject/sonarqube/token
+    MYSQL_ROOT: mysql/root/password
+    MYSQL_DB: mysql/db/password
 
 phases:
   install:
